@@ -6,12 +6,12 @@ import OrderController from './controllers/OrderController';
 import ProductController from './controllers/ProductController';
 
 const productController = new ProductController();
-
+const ecommerceController = new EcommerceController();
 
 const routes = Router();
 
-routes.post('/ecommerce/add', EcommerceController.create);
-routes.get('/ecommerce/all', EcommerceController.index);
+routes.post('/ecommerce/add', ecommerceController.create);
+routes.get('/ecommerce/all', ecommerceController.index);
 
 routes.post('/order/add', OrderController.create);
 routes.get('/order/getOrdersByEcommerce/:id', OrderController.getOrdersByEcommerce);

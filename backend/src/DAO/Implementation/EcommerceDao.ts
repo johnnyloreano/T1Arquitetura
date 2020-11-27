@@ -21,7 +21,7 @@ export default class EcommerceDao implements IEcommerceDAO {
             (err) => { return err; }
         );
     }
-    async getById(idNumber : number): Promise<Ecommerce>{
+    async getById(idNumber: number): Promise<Ecommerce> {
         return this.EcommerceRepository.findOne(idNumber).then(
             (newEcommerce) => { return newEcommerce }
         ).catch(
