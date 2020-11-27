@@ -1,6 +1,6 @@
-import IDao from '../Interface/IDao';
+import IDao from '../Interface/IDAO';
 
-export default class ProductDao implements IDao{
+export default class CustomerDao implements IDao {
     save(arg0: Object): void {
         throw new Error('Method not implemented.');
     }
@@ -13,4 +13,5 @@ export default class ProductDao implements IDao{
     delete(arg0: Object): void {
         throw new Error('Method not implemented.');
     }
+
 }

@@ -5,11 +5,18 @@ import * as Yup from 'yup';
 import DateUtils from '../utils/DateUtils';
 
 import Order from '../models/Order';
+import OrderDAO from '../DAO/Implementation/OrderDao';
+
 import EcommerceController from '../controllers/EcommerceController';
 import ProductController from '../controllers/ProductController';
 import CustomerController from '../controllers/CustomerController';
 
-export default {
+export default class OrderController {
+    orderDAO: OrderDAO;
+    OrderController(){
+        this.orderDAO = new OrderDAO();
+    }
+
     async create(request: Request, response: Response) {
         const {
             selectEcommerce,
@@ -35,9 +42,11 @@ export default {
             abortEarly: false
         });
 
+        const productController = new ProductController();
+
         const ecommerce = await EcommerceController.getEcommerceById(selectEcommerce);
         const customer = await CustomerController.getCustomerById(1);
-        const products = await ProductController.addProducts(listProducts);
+        const products = await productController.addProducts(listProducts);
         const orderRepository = getRepository(Order);
 
         const orderDate = new Date(requestDate);
@@ -83,7 +92,7 @@ export default {
         await orderRepository.save(order);
 
         return response.status(201).json(order);
-    },
+    }
 
     async getOrdersByEcommerce(request: Request, response: Response) {
         const { id } = request.params;
@@ -109,7 +118,7 @@ export default {
         });
 
         return response.json(customerOrders);
-    },
+    }
 
     async getOrdersByParams(request: Request, response: Response) {
         const {
