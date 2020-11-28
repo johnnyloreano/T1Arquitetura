@@ -7,12 +7,10 @@ import { CadastroModule } from './pages/cadastro/cadastro.module';
 import { PedidoModule } from './pages/pedido/pedido.module';
 import { RelatorioModule } from './pages/relatorio/relatorio.module';
 import {HttpClientModule} from '@angular/common/http';
-import { HeaderComponent } from './component/Form/header/header.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HeaderComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
