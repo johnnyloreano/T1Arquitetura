@@ -17,7 +17,6 @@ export default class CustomerController {
         if(!CustomerController.instance){
         CustomerController.instance = new CustomerController();
         }
-        // console.log(CustomerController.instance.customerDAO.);
         return CustomerController.instance;
     }
 
@@ -37,6 +36,7 @@ export default class CustomerController {
 
         const data = { name };
         const customer = customerRepository.create(data);
+        
 
         await customerRepository.save(customer);
 

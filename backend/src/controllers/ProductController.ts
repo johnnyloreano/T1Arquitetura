@@ -2,21 +2,20 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 import Product from '../models/Product';
-import ProductDAO from '../DAO/Implementation/ProductDAO';
+import ProductDAO from '../DAO/Implementation/ProductDao';
 interface ProductRequest {
     name: string;
 }
 export default class ProductController {
     productDAO: ProductDAO;
     private static instance: ProductController;
-    private constructor(){
+    private constructor() {
         this.productDAO = new ProductDAO();
     }
-
-    public static getInstance() : ProductController{
-        if(!ProductController.instance)
-        ProductController.instance = new ProductController();
-            return ProductController.instance;
+    public static getInstance(): ProductController {
+        if (!ProductController.instance)
+            ProductController.instance = new ProductController();
+        return ProductController.instance;
     }
     async create(request: Request, response: Response) {
         const { name } = request.body;
@@ -61,7 +60,6 @@ export default class ProductController {
                 productsToReturn.push(product);
             }
         }
-
         return productsToReturn;
     }
     async getAll(request: Request, response: Response) {
