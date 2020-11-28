@@ -8,11 +8,16 @@ interface ProductRequest {
 }
 export default class ProductController {
     productDAO: ProductDAO;
-
-    ProductController(){
+    private static instance: ProductController;
+    private constructor(){
         this.productDAO = new ProductDAO();
     }
 
+    public static getInstance() : ProductController{
+        if(!ProductController.instance)
+        ProductController.instance = new ProductController();
+            return ProductController.instance;
+    }
     async create(request: Request, response: Response) {
         const { name } = request.body;
 

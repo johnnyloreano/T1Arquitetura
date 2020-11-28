@@ -3,13 +3,24 @@ import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import Customer from '../models/Customer';
-import CustomerDAO from '../DAO/Implementation/CustomerDAO';
+import CustomerDAO from '../DAO/Implementation/CustomerDao';
 
 export default class CustomerController {
     customerDAO: CustomerDAO;
-    CustomerController() {
+    private static instance: CustomerController;
+
+    constructor() {
         this.customerDAO = new CustomerDAO();
     }
+
+    public static get Instance() : CustomerController{
+        if(!CustomerController.instance){
+        CustomerController.instance = new this();
+        }
+        return CustomerController.instance;
+    }
+
+
     async create(request: Request, response: Response) {
         const { name } = request.body;
 

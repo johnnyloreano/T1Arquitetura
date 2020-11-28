@@ -13,9 +13,16 @@ import CustomerController from '../controllers/CustomerController';
 
 export default class OrderController {
     orderDAO: OrderDAO;
+    private static instance: OrderController;
 
-    OrderController(){
+    private constructor(){
         this.orderDAO = new OrderDAO();
+    }
+
+    public static getInstance() : OrderController{
+        if(!OrderController.instance)
+        OrderController.instance = new OrderController();
+            return OrderController.instance;
     }
 
     async create(request: Request, response: Response) {

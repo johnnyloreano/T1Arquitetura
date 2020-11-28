@@ -1,4 +1,4 @@
-import IOrderDAO from '../Interface/IOrderDAO';
+import IOrderDAO from '../Interface/IOrderDao';
 
 export default class OrderDAO implements IOrderDAO {
     getOrdersByEcommerce(): Object {

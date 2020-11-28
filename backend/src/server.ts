@@ -1,18 +1,25 @@
 import express from 'express';
 import cors from 'cors';
-
 import 'express-async-errors';
-
-import './database/connection';
-
 import routes from './routes';
 import errprHandler from './errors/handler';
+export default class Server{
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-app.use(routes);
-app.use(errprHandler);
-
-app.listen(3333);
+    private static instance : Server;
+    private static express: any;
+    private constructor(){
+        Server.express = express();
+    }
+    public start(){
+        Server.express.use(cors());
+        Server.express.use(express.json());
+        Server.express.use(routes);
+        Server.express.use(errprHandler);
+        Server.express.listen(3333);
+    }
+    public static getInstance(){
+        if(!Server.instance)
+            Server.instance = new Server();
+        return Server.instance;
+    }
+}

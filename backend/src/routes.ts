@@ -5,11 +5,10 @@ import EcommerceController from './controllers/EcommerceController';
 import OrderController from './controllers/OrderController';
 import ProductController from './controllers/ProductController';
 
-const customerController = new CustomerController();
-const ecommerceController = new EcommerceController();
-const orderController = new OrderController();
-const productController = new ProductController();
-
+const customerController = CustomerController.Instance;
+const ecommerceController =  EcommerceController.getInstance();
+const orderController = OrderController.getInstance();
+const productController = ProductController.getInstance();
 const routes = Router();
 
 routes.post('/ecommerce/add', ecommerceController.create);

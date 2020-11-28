@@ -3,13 +3,19 @@ import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import Ecommerce from '../models/Ecommerce';
-import EcommerceDao from '../DAO/Implementation/EcommerceDAO'
+import EcommerceDao from '../DAO/Implementation/EcommerceDao'
 export default class EcommerceController {
-
     ecommerceDao:EcommerceDao;
+    private static instance: EcommerceController;
 
-    EcommerceController(){
+    private constructor(){
         this.ecommerceDao = new EcommerceDao();
+    }
+
+    public static getInstance() : EcommerceController{
+        if(!EcommerceController.instance)
+        EcommerceController.instance = new EcommerceController();
+            return EcommerceController.instance;
     }
 
     async create(request: Request, response: Response) {
@@ -20,8 +26,6 @@ export default class EcommerceController {
         await schemaRequest.validate(request.body, {
             abortEarly: false
         });
-
-        const ecommerceRepository = getRepository(Ecommerce);
 
         const newEcommerce = new Ecommerce();
         newEcommerce.name = name;

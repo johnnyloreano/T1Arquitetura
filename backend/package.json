@@ -1,10 +1,10 @@
 {
   "name": "trabalho_arquitetura",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "main.js",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/server.ts",
+    "dev": "ts-node-dev --transpile-only --ignore-watch node_modules src/main.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {

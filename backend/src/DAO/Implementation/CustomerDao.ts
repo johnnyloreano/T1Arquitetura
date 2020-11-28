@@ -1,4 +1,4 @@
-import ICustomerDAO from '../Interface/ICustomerDAO';
+import ICustomerDAO from '../Interface/ICustomerDao';
 
 export default class CustomerDAO implements ICustomerDAO {
     getById(id: number): Promise<Object> {

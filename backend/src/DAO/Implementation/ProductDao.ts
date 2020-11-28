@@ -5,10 +5,10 @@ import { getRepository } from 'typeorm';
 
 export default class ProductDAO implements IProductDAO {
 
-    productRepository = getRepository(Product);
     async save(product: Product): Promise<Product> {
-        const newProduct = this.productRepository.create(product);
-        return (await this.productRepository.save(newProduct).then(
+        let productRepository = getRepository(Product);
+        const newProduct = productRepository.create(product);
+        return (await productRepository.save(newProduct).then(
             (newProduct) => { return newProduct }
         ).catch(
             (err) => { return err }
@@ -16,7 +16,8 @@ export default class ProductDAO implements IProductDAO {
         );
     }
     async getAll(): Promise<Product> {
-        return this.productRepository.find().then(
+        let productRepository = getRepository(Product);
+        return productRepository.find().then(
             (productList) => { return productList; }
         ).catch(
             (err) => { return err; }
