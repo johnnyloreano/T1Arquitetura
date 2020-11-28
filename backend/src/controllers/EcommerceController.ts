@@ -30,7 +30,7 @@ export default class EcommerceController {
         const newEcommerce = new Ecommerce();
         newEcommerce.name = name;
 
-        const ecommerce = this.ecommerceDao.save(newEcommerce);
+        const ecommerce = await EcommerceController.instance.ecommerceDao.save(newEcommerce);
 
         return response.status(201).json(ecommerce);
     }
@@ -40,9 +40,9 @@ export default class EcommerceController {
         await schemaRequest.validate(id, {
             abortEarly: false
         });
-        return this.ecommerceDao.getById(id);
+        return await EcommerceController.instance.ecommerceDao.getById(id);
     }
     async index(request: Request, response: Response) {
-        return this.ecommerceDao.getAll();
+        return await EcommerceController.instance.ecommerceDao.getAll();
     }
 }

@@ -15,8 +15,9 @@ export default class CustomerController {
 
     public static get Instance() : CustomerController{
         if(!CustomerController.instance){
-        CustomerController.instance = new this();
+        CustomerController.instance = new CustomerController();
         }
+        // console.log(CustomerController.instance.customerDAO.);
         return CustomerController.instance;
     }
 
@@ -40,6 +41,11 @@ export default class CustomerController {
         await customerRepository.save(customer);
 
         return response.status(201).json(customer);
+    }
+    async getAllCustomer(request: Request, response: Response) {
+        let res = await CustomerController.instance.customerDAO.getAll();
+        return response.status(201).json(res);
+
     }
 
     async getCustomerById(id: number) {

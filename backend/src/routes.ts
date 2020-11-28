@@ -22,5 +22,6 @@ routes.post('/product/add', productController.create);
 
 routes.post('/customer/add', customerController.create);
 
+routes.get('/customer/get', customerController.getAllCustomer);
 
 export default routes;

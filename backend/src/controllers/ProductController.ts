@@ -28,10 +28,9 @@ export default class ProductController {
         await schemaRequest.validate(request.body, {
             abortEarly: false
         });
-
         const newProduct = new Product();
         newProduct.name = name;
-        const product = this.productDAO.save(newProduct);
+        const product = await ProductController.instance.productDAO.save(newProduct);
 
         return response.status(201).json(product);
     }
