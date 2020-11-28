@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import DateUtils from '../utils/DateUtils';
 
 import Order from '../models/Order';
-import OrderDAO from '../DAO/Implementation/OrderDao';
+import OrderDAO from '../DAO/Implementation/OrderDAO';
 
 import EcommerceController from '../controllers/EcommerceController';
 import ProductController from '../controllers/ProductController';
@@ -13,6 +13,7 @@ import CustomerController from '../controllers/CustomerController';
 
 export default class OrderController {
     orderDAO: OrderDAO;
+
     OrderController(){
         this.orderDAO = new OrderDAO();
     }
@@ -44,8 +45,11 @@ export default class OrderController {
 
         const productController = new ProductController();
 
-        const ecommerce = await EcommerceController.getEcommerceById(selectEcommerce);
-        const customer = await CustomerController.getCustomerById(1);
+        const ecommerceController = new EcommerceController();
+        const customerController = new CustomerController();
+
+        const ecommerce = await ecommerceController.getEcommerceById(selectEcommerce);
+        const customer = await customerController.getCustomerById(1);
         const products = await productController.addProducts(listProducts);
         const orderRepository = getRepository(Order);
 
@@ -107,8 +111,11 @@ export default class OrderController {
 
         const orderRepository = getRepository(Order);
 
-        const ecommerce = await EcommerceController.getEcommerceById(Number(id));
-        const customer = await CustomerController.getCustomerById(1);
+        const ecommerceController = new EcommerceController();
+        const customerController = new CustomerController();
+
+        const ecommerce = await ecommerceController.getEcommerceById(Number(id));
+        const customer = await customerController.getCustomerById(1);
 
         const customerOrders = await orderRepository.find({
             relations: ['products'],
@@ -140,7 +147,9 @@ export default class OrderController {
         });
         const orderRepository = getRepository(Order);
 
-        const ecommerce = ecommerceId && await EcommerceController.getEcommerceById(Number(ecommerceId));
+        const ecommerceController = new EcommerceController();
+
+        const ecommerce = ecommerceId && await ecommerceController.getEcommerceById(Number(ecommerceId));
         const orderDateFormat = orderDate && DateUtils.toDate(String(orderDate));
 
         let filter = {};

@@ -3,9 +3,13 @@ import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import Customer from '../models/Customer';
-import Order from '../models/Order';
+import CustomerDAO from '../DAO/Implementation/CustomerDAO';
 
-export default {
+export default class CustomerController {
+    customerDAO: CustomerDAO;
+    CustomerController() {
+        this.customerDAO = new CustomerDAO();
+    }
     async create(request: Request, response: Response) {
         const { name } = request.body;
 
@@ -25,7 +29,7 @@ export default {
         await customerRepository.save(customer);
 
         return response.status(201).json(customer);
-    },
+    }
 
     async getCustomerById(id: number) {
         const schemaRequest = Yup.number().required();

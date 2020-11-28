@@ -1,6 +1,9 @@
-import IDao from '../Interface/IDAO';
+import ICustomerDAO from '../Interface/ICustomerDAO';
 
-export default class CustomerDao implements IDao {
+export default class CustomerDAO implements ICustomerDAO {
+    getById(id: number): Promise<Object> {
+        throw new Error('Method not implemented.');
+    }
     save(arg0: Object): void {
         throw new Error('Method not implemented.');
     }
@@ -13,5 +16,4 @@ export default class CustomerDao implements IDao {
     delete(arg0: Object): void {
         throw new Error('Method not implemented.');
     }
-
 }

@@ -1,7 +1,6 @@
+import IOrderDAO from '../Interface/IOrderDAO';
 
-import IOrderDao from '../Interface/IOrderDao';
-
-export default class OrderDao implements IOrderDao{
+export default class OrderDAO implements IOrderDAO {
     getOrdersByEcommerce(): Object {
         throw new Error('Method not implemented.');
     }
@@ -20,5 +19,4 @@ export default class OrderDao implements IOrderDao{
     delete(arg0: Object): void {
         throw new Error('Method not implemented.');
     }
-
 }

@@ -3,47 +3,42 @@ import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
 import Ecommerce from '../models/Ecommerce';
+import EcommerceDao from '../DAO/Implementation/EcommerceDAO'
+export default class EcommerceController {
 
-export default {
+    ecommerceDao:EcommerceDao;
+
+    EcommerceController(){
+        this.ecommerceDao = new EcommerceDao();
+    }
+
     async create(request: Request, response: Response) {
         const { name } = request.body;
-
         const schemaRequest = Yup.object().shape({
             name: Yup.string().required()
         });
-
         await schemaRequest.validate(request.body, {
             abortEarly: false
         });
 
         const ecommerceRepository = getRepository(Ecommerce);
 
-        const data = { name };
-        const ecommerce = ecommerceRepository.create(data);
+        const newEcommerce = new Ecommerce();
+        newEcommerce.name = name;
 
-        await ecommerceRepository.save(ecommerce);
+        const ecommerce = this.ecommerceDao.save(newEcommerce);
 
         return response.status(201).json(ecommerce);
-    },
+    }
 
     async getEcommerceById(id: number) {
         const schemaRequest = Yup.number().required()
-
         await schemaRequest.validate(id, {
             abortEarly: false
         });
-        const ecommerceRepository = getRepository(Ecommerce);
-
-        const ecommerce = await ecommerceRepository.findOne(id);
-
-        return ecommerce;
-    },
-
+        return this.ecommerceDao.getById(id);
+    }
     async index(request: Request, response: Response) {
-        const ecommerceRepository = getRepository(Ecommerce);
-
-        const ecommerces = await ecommerceRepository.find();
-
-        return response.json(ecommerces);
+        return this.ecommerceDao.getAll();
     }
 }

@@ -2,15 +2,17 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 import Product from '../models/Product';
-import ProductDAO from '../DAO/Implementation/ProductDao';
+import ProductDAO from '../DAO/Implementation/ProductDAO';
 interface ProductRequest {
     name: string;
 }
 export default class ProductController {
     productDAO: ProductDAO;
+
     ProductController(){
         this.productDAO = new ProductDAO();
     }
+
     async create(request: Request, response: Response) {
         const { name } = request.body;
 
@@ -21,17 +23,13 @@ export default class ProductController {
         await schemaRequest.validate(request.body, {
             abortEarly: false
         });
-        
-        const productRepository = getRepository(Product);
 
-        const data = { name };
-        const product = productRepository.create(data);
-
-        await productRepository.save(product);
+        const newProduct = new Product();
+        newProduct.name = name;
+        const product = this.productDAO.save(newProduct);
 
         return response.status(201).json(product);
     }
-
     async addProducts(products: ProductRequest[]) {
         const schemaRequest = Yup.array(
             Yup.object().shape({
@@ -61,6 +59,9 @@ export default class ProductController {
         }
 
         return productsToReturn;
+    }
+    async getAll(request: Request, response: Response) {
+        return response.status(201).json(this.productDAO.getAll());
     }
 
 }

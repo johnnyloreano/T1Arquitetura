@@ -1,4 +1,4 @@
-export default interface IDao{
+export default interface IDAO {
     save(arg0: Object): void;
     getAll(): Object;
     update(oldObj: Object , newObj: Object): void;
