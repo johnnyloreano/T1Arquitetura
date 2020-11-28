@@ -5,10 +5,23 @@ import { getRepository } from 'typeorm';
 export default class CustomerDAO implements ICustomerDAO {
 
     getById(id: number): Promise<Object> {
-        throw new Error('Method not implemented.');
+        let customerRepository = getRepository(Customer);
+        return customerRepository.findByIds([id]).then(
+            (customer) => {
+                return customer; }
+        ).catch(
+            (err) => { return err; }
+        );
     }
-    save(arg0: Object): void {
-        throw new Error('Method not implemented.');
+    save(customer: Customer): void {
+        let customerRepository = getRepository(Customer);
+        let newC = new Customer();
+        newC.name = customer.name;
+        customerRepository.save(newC).then(
+            () => {return;}
+        ).catch(
+            (err) => { return err; }
+        );
     }
     getAll(): Object {
         let customerRepository = getRepository(Customer);

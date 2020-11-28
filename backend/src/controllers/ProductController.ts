@@ -50,20 +50,20 @@ export default class ProductController {
         const productList = products.map((prod) => prod.name);
 
         for (const name of productList) {
-            let product = await productRepository.findOne({ name });
+            let product = await ProductController.getInstance().productDAO.getByName({ name });
             if (product) {
                 productsToReturn.push(product);
             } else {
-                const dataProduct = { name }
-                const newProduct = productRepository.create(dataProduct);
-                product = await productRepository.save(newProduct);
+                const newProduct = new Product()
+                newProduct.name = name
+                product = await ProductController.getInstance().productDAO.save(newProduct);
                 productsToReturn.push(product);
             }
         }
         return productsToReturn;
     }
     async getAll(request: Request, response: Response) {
-        return response.status(201).json(this.productDAO.getAll());
+        return response.status(201).json( await ProductController.instance.productDAO.getAll());
     }
 
 }

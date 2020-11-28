@@ -19,9 +19,9 @@ routes.get('/order/getOrdersByEcommerce/:id', orderController.getOrdersByEcommer
 routes.get('/order/getOrdersByParams', orderController.getOrdersByParams);
 
 routes.post('/product/add', productController.create);
+routes.get('/product/get', productController.getAll);
 
 routes.post('/customer/add', customerController.create);
-
 routes.get('/customer/get', customerController.getAllCustomer);
 
 export default routes;

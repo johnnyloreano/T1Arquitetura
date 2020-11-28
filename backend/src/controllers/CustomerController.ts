@@ -1,4 +1,4 @@
-import { request, Request, Response } from 'express';
+import { request, Request, response, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
 
@@ -19,8 +19,6 @@ export default class CustomerController {
         }
         return CustomerController.instance;
     }
-
-
     async create(request: Request, response: Response) {
         const { name } = request.body;
 
@@ -32,22 +30,16 @@ export default class CustomerController {
             abortEarly: false
         });
 
-        const customerRepository = getRepository(Customer);
+        const customerToAdd = new Customer();
+        customerToAdd.name = name;
+        const newCustomer = await CustomerController.Instance.customerDAO.save(customerToAdd);
 
-        const data = { name };
-        const customer = customerRepository.create(data);
-        
-
-        await customerRepository.save(customer);
-
-        return response.status(201).json(customer);
+        return response.status(201).json({success: 'true'});
     }
     async getAllCustomer(request: Request, response: Response) {
         let res = await CustomerController.instance.customerDAO.getAll();
         return response.status(201).json(res);
-
     }
-
     async getCustomerById(id: number) {
         const schemaRequest = Yup.number().required();
 
@@ -55,8 +47,8 @@ export default class CustomerController {
             abortEarly: false
         });
 
-        const customerRepository = getRepository(Customer);
+        const customer = await CustomerController.Instance.customerDAO.getById(id);
 
-        return await customerRepository.findOne(id);
+        return response.status(201).json(customer);
     }
 }
