@@ -1,4 +1,4 @@
-import IDAO from './IDAO';
+import IDAO from './IDao';
 
 export default interface IOrderDAO extends IDAO{
     getOrdersByEcommerce(): Object;

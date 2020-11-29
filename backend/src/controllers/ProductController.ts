@@ -17,6 +17,7 @@ export default class ProductController {
             ProductController.instance = new ProductController();
         return ProductController.instance;
     }
+
     async create(request: Request, response: Response) {
         const { name } = request.body;
 
@@ -33,6 +34,7 @@ export default class ProductController {
 
         return response.status(201).json(product);
     }
+
     async addProducts(products: ProductRequest[]) {
         const schemaRequest = Yup.array(
             Yup.object().shape({
@@ -43,11 +45,14 @@ export default class ProductController {
         await schemaRequest.validate(products, {
             abortEarly: false
         });
+
         const productRepository = getRepository(Product);
 
         const productsToReturn: Product[] = [];
 
         const productList = products.map((prod) => prod.name);
+        console.log(productList);
+
 
         for (const name of productList) {
             let product = await ProductController.getInstance().productDAO.getByName({ name });

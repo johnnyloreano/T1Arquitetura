@@ -1,6 +1,6 @@
 import IOrderDAO from '../Interface/IOrderDao';
 
-export default class OrderDAO implements IOrderDAO {
+export default class OrderDao implements IOrderDAO {
     getOrdersByEcommerce(): Object {
         throw new Error('Method not implemented.');
     }

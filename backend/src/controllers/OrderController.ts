@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import DateUtils from '../utils/DateUtils';
 
 import Order from '../models/Order';
-import OrderDAO from '../DAO/Implementation/OrderDAO';
+import OrderDAO from '../DAO/Implementation/OrderDao';
 
 import EcommerceController from '../controllers/EcommerceController';
 import ProductController from '../controllers/ProductController';
@@ -50,10 +50,9 @@ export default class OrderController {
             abortEarly: false
         });
 
-        const productController = new ProductController();
-
-        const ecommerceController = new EcommerceController();
-        const customerController = new CustomerController();
+        const productController = ProductController.getInstance();
+        const ecommerceController = EcommerceController.getInstance();
+        const customerController = CustomerController.getInstance();
 
         const ecommerce = await ecommerceController.getEcommerceById(selectEcommerce);
         const customer = await customerController.getCustomerById(1);
@@ -118,8 +117,8 @@ export default class OrderController {
 
         const orderRepository = getRepository(Order);
 
-        const ecommerceController = new EcommerceController();
-        const customerController = new CustomerController();
+        const ecommerceController = EcommerceController.getInstance();
+        const customerController = CustomerController.getInstance();
 
         const ecommerce = await ecommerceController.getEcommerceById(Number(id));
         const customer = await customerController.getCustomerById(1);
@@ -154,7 +153,7 @@ export default class OrderController {
         });
         const orderRepository = getRepository(Order);
 
-        const ecommerceController = new EcommerceController();
+        const ecommerceController = EcommerceController.getInstance();
 
         const ecommerce = ecommerceId && await ecommerceController.getEcommerceById(Number(ecommerceId));
         const orderDateFormat = orderDate && DateUtils.toDate(String(orderDate));

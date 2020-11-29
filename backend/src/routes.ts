@@ -5,7 +5,7 @@ import EcommerceController from './controllers/EcommerceController';
 import OrderController from './controllers/OrderController';
 import ProductController from './controllers/ProductController';
 
-const customerController = CustomerController.Instance;
+const customerController = CustomerController.getInstance();
 const ecommerceController =  EcommerceController.getInstance();
 const orderController = OrderController.getInstance();
 const productController = ProductController.getInstance();

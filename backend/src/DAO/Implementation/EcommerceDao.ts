@@ -3,9 +3,8 @@ import IEcommerceDAO from '../Interface/IEcommerceDao';
 import Ecommerce from '../../models/Ecommerce';
 import { getRepository } from 'typeorm';
 
-export default class EcommerceDAO implements IEcommerceDAO {
+export default class EcommerceDao implements IEcommerceDAO {
 
-    
     async save(newEcommerce: Ecommerce): Promise<Ecommerce> {
         let EcommerceRepository = getRepository(Ecommerce);
         const result = EcommerceRepository.create(newEcommerce);

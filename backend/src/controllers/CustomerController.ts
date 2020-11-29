@@ -9,11 +9,11 @@ export default class CustomerController {
     customerDAO: CustomerDAO;
     private static instance: CustomerController;
 
-    constructor() {
+    private constructor() {
         this.customerDAO = new CustomerDAO();
     }
 
-    public static get Instance() : CustomerController{
+    public static getInstance() : CustomerController{
         if(!CustomerController.instance){
         CustomerController.instance = new CustomerController();
         }
@@ -32,14 +32,16 @@ export default class CustomerController {
 
         const customerToAdd = new Customer();
         customerToAdd.name = name;
-        const newCustomer = await CustomerController.Instance.customerDAO.save(customerToAdd);
+        const newCustomer = await CustomerController.instance.customerDAO.save(customerToAdd);
 
         return response.status(201).json({success: 'true'});
     }
+
     async getAllCustomer(request: Request, response: Response) {
         let res = await CustomerController.instance.customerDAO.getAll();
         return response.status(201).json(res);
     }
+
     async getCustomerById(id: number) {
         const schemaRequest = Yup.number().required();
 
@@ -47,7 +49,7 @@ export default class CustomerController {
             abortEarly: false
         });
 
-        const customer = await CustomerController.Instance.customerDAO.getById(id);
+        const customer = await CustomerController.instance.customerDAO.getById(id);
 
         return response.status(201).json(customer);
     }
