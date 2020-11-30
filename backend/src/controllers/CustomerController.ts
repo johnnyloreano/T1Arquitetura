@@ -21,7 +21,6 @@ export default class CustomerController {
     }
     async create(request: Request, response: Response) {
         const { name } = request.body;
-
         const schemaRequest = Yup.object().shape({
             name: Yup.string().required()
         });
@@ -49,6 +48,6 @@ export default class CustomerController {
 
         const customer = await CustomerController.Instance.customerDAO.getById(id);
 
-        return response.status(201).json(customer);
+        return customer;
     }
 }

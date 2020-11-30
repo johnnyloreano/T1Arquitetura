@@ -23,6 +23,14 @@ export default class ProductDAO implements IProductDAO {
             (err) => { return err; }
         );
     }
+    async getByName(name: string): Promise<Product> {
+        let productRepository = getRepository(Product);
+        return productRepository.find({name}).then(
+            (productList) => { return productList; }
+        ).catch(
+            (err) => { return err; }
+        );
+    }
     update(oldObj: Object, newObj: Object): void {
         throw new Error('Method not implemented.');
     }

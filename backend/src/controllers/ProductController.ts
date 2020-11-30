@@ -9,7 +9,7 @@ interface ProductRequest {
 export default class ProductController {
     productDAO: ProductDAO;
     private static instance: ProductController;
-    private constructor() {
+    public constructor() {
         this.productDAO = new ProductDAO();
     }
     public static getInstance(): ProductController {
@@ -50,8 +50,8 @@ export default class ProductController {
         const productList = products.map((prod) => prod.name);
 
         for (const name of productList) {
-            let product = await ProductController.getInstance().productDAO.getByName({ name });
-            if (product) {
+            let product = await ProductController.getInstance().productDAO.getByName(name);
+            if (product.id) {
                 productsToReturn.push(product);
             } else {
                 const newProduct = new Product()

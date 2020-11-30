@@ -4,9 +4,9 @@ import { getRepository } from 'typeorm';
 
 export default class CustomerDAO implements ICustomerDAO {
 
-    getById(id: number): Promise<Object> {
+    getById(id: number): Promise<Customer> {
         let customerRepository = getRepository(Customer);
-        return customerRepository.findByIds([id]).then(
+        return customerRepository.findOne({id}).then(
             (customer) => {
                 return customer; }
         ).catch(

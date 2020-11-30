@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import DateUtils from '../utils/DateUtils';
 
 import Order from '../models/Order';
-import OrderDAO from '../DAO/Implementation/OrderDAO';
+import OrderDAO from '../DAO/Implementation/OrderDao';
 
 import EcommerceController from '../controllers/EcommerceController';
 import ProductController from '../controllers/ProductController';
@@ -172,7 +172,6 @@ export default class OrderController {
         if (deliveredOnTime) {
             customerOrders = customerOrders.filter(element => DateUtils.compareTo(element.deliveryDate, element.estimatedDeliveryDate));
         }
-        console.log(customerOrders);
         return response.json(customerOrders);
     }
 }

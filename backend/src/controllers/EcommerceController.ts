@@ -8,7 +8,7 @@ export default class EcommerceController {
     ecommerceDao:EcommerceDao;
     private static instance: EcommerceController;
 
-    private constructor(){
+    public constructor(){
         this.ecommerceDao = new EcommerceDao();
     }
 
