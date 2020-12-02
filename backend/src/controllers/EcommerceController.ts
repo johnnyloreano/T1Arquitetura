@@ -43,6 +43,6 @@ export default class EcommerceController {
         return await EcommerceController.instance.ecommerceDao.getById(id);
     }
     async index(request: Request, response: Response) {
-        return await EcommerceController.instance.ecommerceDao.getAll();
+        return  response.status(201).json(await EcommerceController.instance.ecommerceDao.getAll());
     }
 }
